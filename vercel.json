@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/src/index.ts",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "ui/package.json",
+            "use": "@vercel/next"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "api/src/index.ts",
+            "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
+        },
+        {
+            "src": "/(.*)",
+            "dest": "ui/$1"
+        }
+    ],
+    "env": {
+        "NODE_ENV": "production"
+    }
+}
